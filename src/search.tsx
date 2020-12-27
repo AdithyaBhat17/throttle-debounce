@@ -1,4 +1,5 @@
 import * as React from "react";
+import { debounce } from "./debounce";
 
 export default function Debounce() {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -17,13 +18,13 @@ export default function Debounce() {
     }
   }, []);
 
-  // A simple version of debounce() using useEffect
+  const debouncedFn = React.useMemo(() => debounce(fetchData, 500), [
+    fetchData,
+  ]);
+
   React.useEffect(() => {
     const url = `http://sepomex.icalialabs.com/api/v1/zip_codes?city=${searchTerm}`;
-    const timeout = setTimeout(() => {
-      if (searchTerm.trim()) fetchData(url);
-    }, 500);
-    return () => clearTimeout(timeout);
+    if (searchTerm.trim()) debouncedFn(url);
   }, [searchTerm, fetchData]);
 
   return (
