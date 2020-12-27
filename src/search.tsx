@@ -17,6 +17,7 @@ export default function Debounce() {
     }
   }, []);
 
+  // A simple version of debounce() using useEffect
   React.useEffect(() => {
     const url = `http://sepomex.icalialabs.com/api/v1/zip_codes?city=${searchTerm}`;
     const timeout = setTimeout(() => {
