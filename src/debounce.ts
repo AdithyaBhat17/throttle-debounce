@@ -1,4 +1,4 @@
-type Callback = (...args: any[]) => void | Promise<void>;
+export type Callback = (...args: any[]) => void | Promise<void>;
 
 export function debounce<T extends Callback>(cb: T, wait: number) {
   let timeout: NodeJS.Timeout;
